@@ -1,0 +1,88 @@
+<div class="quiz">
+  <section class="quiz-stage">
+    <header class="quiz-header">
+      <div class="quiz-brand" aria-hidden="true">
+        <img src="assets/brand.svg" width="40" height="40" alt="" />
+      </div>
+      <div class="quiz-intro">
+        <h1>{{ 'app.title' | translate }}</h1>
+        <p class="quiz-subtitle">{{ 'app.tagline' | translate }}</p>
+      </div>
+      <span class="quiz-locale">{{ 'app.localeHint' | translate }}</span>
+    </header>
+
+    @if (!finished()) {
+      <div class="quiz-progress">
+        <span class="quiz-progress-label">
+          {{ 'quiz.progress' | translate: { current: index() + 1, total: questions().length } }}
+        </span>
+        <div class="quiz-progress-track" aria-hidden="true">
+          <div
+            class="quiz-progress-fill"
+            [style.width.%]="((index() + (answerState() === 'idle' ? 0 : 1)) / questions().length) * 100"
+          ></div>
+        </div>
+        <div class="quiz-progress-steps" aria-hidden="true">
+          @for (item of questions(); track item.id; let i = $index) {
+            <span
+              class="quiz-progress-step"
+              [class.quiz-progress-step-current]="i === index()"
+              [class.quiz-progress-step-correct]="stepState(i) === 'correct'"
+              [class.quiz-progress-step-wrong]="stepState(i) === 'wrong'"
+            ></span>
+          }
+        </div>
+      </div>
+
+      <h2 class="question-prompt">{{ question().promptKey | translate }}</h2>
+
+      <div class="choice-list">
+        @for (option of question().options; track option.id) {
+          <button
+            type="button"
+            class="choice"
+            [class.choice-selected]="selected() === option.id"
+            [class.choice-correct]="answerState() !== 'idle' && option.id === question().correct"
+            [class.choice-wrong]="answerState() === 'wrong' && selected() === option.id"
+            [disabled]="answerState() !== 'idle'"
+            (click)="onPick(option.id)"
+          >
+            <span class="choice-key">{{ option.id | uppercase }}</span>
+            <span class="choice-text">{{ option.labelKey | translate }}</span>
+          </button>
+        }
+      </div>
+
+      @if (answerState() !== 'idle') {
+        <div
+          class="answer-result"
+          [class.answer-result-correct]="answerState() === 'correct'"
+          [class.answer-result-wrong]="answerState() === 'wrong'"
+        >
+          <strong>
+            {{ (answerState() === 'correct' ? 'quiz.correct' : 'quiz.wrong') | translate }}
+          </strong>
+          @if (answerState() === 'wrong') {
+            <p class="correct-answer">
+              {{ 'quiz.correctAnswer' | translate: { answer: question().correct | uppercase } }}
+            </p>
+          }
+          <p>{{ question().funFactKey | translate }}</p>
+          <button type="button" class="quiz-btn quiz-btn-primary" (click)="onNext()">
+            {{ (index() + 1 >= questions().length ? 'quiz.seeResults' : 'quiz.next') | translate }}
+          </button>
+        </div>
+      }
+    } @else {
+      <div class="quiz-summary" [attr.data-grade]="grade()">
+        <div class="summary-score-mark" aria-hidden="true">{{ score() }}</div>
+        <p class="summary-score">{{ 'quiz.score' | translate: { score: score() } }}</p>
+        <p class="summary-grade">{{ gradeLabelKey() | translate }}</p>
+        <p class="summary-tip">{{ gradeTipKey() | translate }}</p>
+        <button type="button" class="quiz-btn quiz-btn-primary" (click)="onReplay()">
+          {{ 'quiz.replay' | translate }}
+        </button>
+      </div>
+    }
+  </section>
+</div>

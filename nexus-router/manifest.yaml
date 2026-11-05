@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=node_modules/@pc-nexus/manifest/schema/manifest.schema.json
+app:
+  version: 1.0.0
+  publisher:
+    name: PingCode 团队
+    email: support@pingcode.com
+    phone: 400-805-1024
+    site: https://pingcode.com
+  links:
+    - title: 服务条款
+      url: https://pingcode.com/terms
+    - title: 隐私政策
+      url: https://pingcode.com/privacy
+extensions:
+  - key: nexus-router-app-hub
+    target: pcm:global:app:hub
+    title: Router
+    resource: main
+    resolver:
+      function: resolver
+functions:
+  - key: resolver
+    handler: index.resolver
+resources:
+  - key: main
+    path: web/main/dist
+permissions:
+  scopes: []
+  external:
+    fetch:
+      client:
+        # 允许 router.navigate / router.open 打开该域时不弹出「跳转确认」
+        - developer.pingcode.com
+  content:
+    styles:
+      - unsafe-inline

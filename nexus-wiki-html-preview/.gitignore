@@ -1,0 +1,14 @@
+node_modules/
+dist/
+web/main/dist/
+web/main/node_modules/
+web/edit/dist/
+web/edit/node_modules/
+.output/
+*.log
+.DS_Store
+*.tsbuildinfo
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
