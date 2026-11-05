@@ -1,0 +1,29 @@
+@if (isDisplay()) {
+  <main class="viewers">
+    @if (error()) {
+      <p class="viewers-status viewers-status-error" role="alert">{{ error() }}</p>
+    } @else if (viewers().length > 0) {
+      <div class="viewers-row" #viewersRow>
+        <thy-avatar-list class="viewers-list" [thyAvatarSize]="avatarSize">
+          @for (person of visibleViewers(); track person.userId) {
+            <thy-avatar
+              [thyTooltip]="person.displayName"
+              thyTooltipPlacement="bottom"
+              [thySize]="avatarSize"
+              [thyName]="person.displayName"
+              [thyShowName]="false"
+              [thySrc]="person.avatarUrl"
+            />
+          }
+          @if (overflowCount() > 0) {
+            <ng-template #append>
+              <span class="viewers-more" [thyTooltip]="overflowTooltip()" thyTooltipPlacement="bottom" role="note">
+                +{{ overflowCount() }}
+              </span>
+            </ng-template>
+          }
+        </thy-avatar-list>
+      </div>
+    }
+  </main>
+}

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+out-tsc/
+.output/
+*.log
+.DS_Store
+*.tsbuildinfo

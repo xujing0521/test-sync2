@@ -1,0 +1,96 @@
+<div class="todo-card">
+  @if (loading()) {
+    <div class="todo-loading">
+      <thy-loading thySimple [thyDone]="false"></thy-loading>
+    </div>
+  } @else if (editing()) {
+    <div class="todo-config">
+      <div class="todo-field">
+        <span class="todo-field-label">显示条数<span class="todo-required">*</span></span>
+        <thy-native-select
+          class="todo-limit"
+          thySize="lg"
+          [ngModel]="limit()"
+          (ngModelChange)="setLimit($event)"
+        >
+          @for (option of displayLimits; track option) {
+            <option [value]="option">{{ option }}条</option>
+          }
+        </thy-native-select>
+      </div>
+      <div class="todo-switch-row">
+        <span>显示完成待办</span>
+        <thy-switch thySize="sm" [ngModel]="showDone()" (ngModelChange)="showDone.set($event)"></thy-switch>
+      </div>
+    </div>
+    <div class="todo-actions">
+      <button
+        thyButton="primary"
+        thySize="lg"
+        type="button"
+        [thyLoading]="saving()"
+        [thyDisabled]="saving()"
+        (click)="saveConfig()"
+      >
+        确定
+      </button>
+    </div>
+  } @else {
+    <div class="todo-scroll">
+      @for (todo of visibleTodos(); track todo.id) {
+        <div class="todo-row" [class.is-done]="todo.done">
+          <label
+            class="todo-check"
+            thyCheckbox
+            [thyInline]="true"
+            [ngModel]="todo.done"
+            (ngModelChange)="toggleTodo(todo.id, $event)"
+          ></label>
+          <span class="todo-title" thyFlexibleText [thyTooltipContent]="todo.title">{{ todo.title }}</span>
+          <span class="todo-status">
+            @if (todo.done) {
+              <thy-icon class="todo-done-mark" thyName="check-circle-fill"></thy-icon>
+            }
+            <button
+              class="todo-remove"
+              thyButtonIcon="close"
+              thySize="sm"
+              thyTheme="danger-weak"
+              type="button"
+              aria-label="删除"
+              thyTooltip="删除"
+              (click)="removeTodo(todo.id)"
+            ></button>
+          </span>
+        </div>
+      }
+
+      @if (composing()) {
+        <form class="todo-form" (submit)="addTodo(); $event.preventDefault()">
+          <input
+            #draftInput
+            thyInput
+            thySize="lg"
+            [value]="draftText()"
+            [attr.maxlength]="maxTitle"
+            placeholder="添加一条待办"
+            [disabled]="saving()"
+            autofocus
+            (input)="draftText.set($any($event.target).value)"
+            (keydown.escape)="cancelAdd()"
+          />
+        </form>
+      }
+
+      <div class="todo-add">
+        <a href="javascript:;" class="link-has-icon" (click)="startAdd()">
+          <thy-icon thyName="plus-bold"></thy-icon>添加待办
+        </a>
+      </div>
+    </div>
+  }
+
+  @if (error()) {
+    <p class="todo-error">{{ error() }}</p>
+  }
+</div>
