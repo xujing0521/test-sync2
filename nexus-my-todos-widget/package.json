@@ -1,0 +1,34 @@
+{
+  "name": "nexus-my-todos-widget",
+  "version": "1.0.0",
+  "description": "Nexus My Todos dashboard widget example app",
+  "type": "module",
+  "main": "index.js",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "workspaces": [
+    "web/main"
+  ],
+  "scripts": {
+    "postinstall": "node scripts/link-web-modules.mjs",
+    "build-web": "npm run build -w nexus-my-todos-widget-web-main",
+    "start-web": "npm run start -w nexus-my-todos-widget-web-main",
+    "build": "tsc && npm run build-web",
+    "serve": "nexus serve --environment development",
+    "start": "concurrently \"npm run start-web\" \"npm run serve\"",
+    "deploy-only": "nexus deploy",
+    "deploy": "npm run build-web && nexus deploy"
+  },
+  "devDependencies": {
+    "@pc-nexus/cli": "0.8.0",
+    "@types/node": "^24.10.1",
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@pc-nexus/core": "^0.8.0",
+    "@pc-nexus/manifest": "^0.8.0",
+    "@pc-nexus/storage": "^0.8.0"
+  }
+}

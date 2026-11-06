@@ -1,0 +1,61 @@
+<main class="profile">
+  <form class="profile-bind" (submit)="onSubmit($event)">
+    <div class="profile-field-head">
+      <span class="profile-label">{{ fieldLabel }}</span>
+    </div>
+    <div class="profile-bind-row">
+      <input
+        thyInput
+        thySize="lg"
+        class="profile-input"
+        name="github-username"
+        [ngModel]="draft()"
+        (ngModelChange)="draft.set($event)"
+        placeholder="输入 GitHub 用户名"
+        autocomplete="off"
+        spellcheck="false"
+        [disabled]="loading()"
+      />
+      <button thyButton="primary" thySize="lg" type="submit" [disabled]="loading()">
+        {{ actionLabel() }}
+      </button>
+    </div>
+  </form>
+
+  @if (statusMessage(); as status) {
+    <p
+      class="profile-status"
+      [class.profile-status-error]="status.kind === 'error'"
+      [attr.role]="status.kind === 'error' ? 'alert' : null"
+    >
+      {{ status.text }}
+    </p>
+  }
+
+  @if (profile(); as card) {
+    <article class="profile-card">
+      <img class="profile-avatar" [src]="card.avatarUrl" alt="" />
+      <div class="profile-body">
+        <h1 class="profile-name">{{ card.name }}</h1>
+        <p class="profile-login">@{{ card.login }}</p>
+        @if (card.bio) {
+          <p class="profile-bio">{{ card.bio }}</p>
+        }
+        @if (card.company) {
+          <p class="profile-meta">{{ card.company }}</p>
+        }
+        @if (card.location) {
+          <p class="profile-meta">{{ card.location }}</p>
+        }
+        <p class="profile-meta">公开仓库 {{ card.publicRepos }}</p>
+        @if (card.profileUrl) {
+          <p class="profile-meta">
+            <a class="profile-url" [href]="card.profileUrl" (click)="onOpenProfile($event, card.profileUrl)">
+              {{ card.profileUrl }}
+            </a>
+          </p>
+        }
+      </div>
+    </article>
+  }
+</main>

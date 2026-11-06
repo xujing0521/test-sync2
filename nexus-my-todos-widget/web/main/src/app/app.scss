@@ -1,0 +1,168 @@
+app-root {
+  display: block;
+  height: 100%;
+  color: var(--text-color);
+}
+
+.todo-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg-color-panel);
+}
+
+.todo-loading {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.todo-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--gray-200);
+  cursor: pointer;
+  contain: paint;
+}
+
+.todo-row .form-check-input {
+  overflow: hidden;
+}
+
+.todo-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.todo-row.is-done .todo-title {
+  color: var(--gray-500, #aaa);
+  text-decoration: line-through;
+}
+
+.todo-status {
+  position: relative;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  margin-left: auto;
+}
+
+.todo-done-mark,
+.todo-remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-done-mark {
+  color: #39ba5d;
+}
+
+.todo-remove {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.todo-row:hover:not(:has(.todo-check:hover)) .todo-done-mark {
+  opacity: 0;
+}
+
+.todo-row:hover:not(:has(.todo-check:hover)) .todo-remove {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.todo-add {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+.todo-form {
+  padding: 8px 12px;
+}
+
+.todo-form input {
+  flex: 1;
+  min-width: 0;
+}
+
+.todo-config {
+  flex: 1;
+  min-height: 0;
+  // overflow: auto;
+}
+
+.todo-field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.todo-field-label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.todo-required {
+  margin-left: 2px;
+  color: #ff7575;
+}
+
+.todo-limit {
+  display: block;
+  width: 100%;
+}
+
+.todo-switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.todo-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 16px;
+}
+
+.todo-error {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  margin: 0;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: rgba(255, 117, 117, 0.1);
+  color: #ff7575;
+  font-size: 12px;
+}
+
+.todo-actions + .todo-error {
+  bottom: 60px;
+}
