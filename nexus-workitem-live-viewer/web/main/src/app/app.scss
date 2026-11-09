@@ -1,0 +1,61 @@
+.viewers {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  height: 120px;
+  padding: 0;
+  // Avatar 24px + gap for bottom tooltip (multi-line overflow names).
+  padding-bottom: 96px;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.viewers-status {
+  margin: 0;
+  color: var(--gray-600);
+  font-size: 0.875rem;
+  line-height: 24px;
+}
+
+.viewers-status-error {
+  color: var(--danger);
+}
+
+.viewers-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 24px;
+}
+
+.viewers-list {
+  // Library default is width:100% + flex:1, which leaves a hole before an external +N.
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 100%;
+  cursor: pointer;
+}
+
+.viewers-list ::ng-deep .thy-avatar {
+  cursor: pointer;
+}
+
+.viewers-more {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gray-200, #eee);
+  color: var(--gray-800, #333);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: default;
+}

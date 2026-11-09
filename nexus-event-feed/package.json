@@ -1,0 +1,35 @@
+{
+  "name": "nexus-event-feed",
+  "version": "1.0.0",
+  "description": "Nexus event feed example app",
+  "type": "module",
+  "main": "index.js",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "workspaces": [
+    "web/main"
+  ],
+  "scripts": {
+    "build-web": "npm run build -w nexus-event-feed-web-main",
+    "start-web": "npm run start -w nexus-event-feed-web-main",
+    "build": "tsc && npm run build-web",
+    "test": "node --experimental-strip-types --test src/feed.test.ts",
+    "serve": "nexus serve --environment development",
+    "start": "concurrently \"npm run start-web\" \"npm run serve\"",
+    "deploy-only": "nexus deploy",
+    "deploy": "npm run build-web && nexus deploy"
+  },
+  "devDependencies": {
+    "@pc-nexus/cli": "1.0.0-next.4",
+    "@types/node": "^24.10.1",
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@pc-nexus/core": "^0.8.0",
+    "@pc-nexus/event": "^0.8.0",
+    "@pc-nexus/manifest": "^0.8.0",
+    "@pc-nexus/storage": "^0.8.0"
+  }
+}

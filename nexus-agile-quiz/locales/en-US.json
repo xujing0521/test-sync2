@@ -1,0 +1,119 @@
+{
+  "app": {
+    "title": "Agile Quiz",
+    "tagline": "A quick quiz on Scrum, Kanban, and agile practice.",
+    "localeHint": "Language · English"
+  },
+  "quiz": {
+    "progress": "Question {{current}} / {{total}}",
+    "correct": "Correct!",
+    "wrong": "Incorrect.",
+    "correctAnswer": "Correct answer: {{answer}}",
+    "next": "Next",
+    "seeResults": "See results",
+    "score": "Score: {{score}} / 100",
+    "replay": "Play again",
+    "grades": {
+      "s": {
+        "label": "Grade S · Scrum Master vibes",
+        "tip": "Perfect score! You can facilitate the next retrospective — just keep the timebox."
+      },
+      "a": {
+        "label": "Grade A · Close to the Sprint Goal",
+        "tip": "So close. Drop that miss into the backlog and review it next round."
+      },
+      "b": {
+        "label": "Grade B · Ready for Daily Scrum",
+        "tip": "Solid middle ground — like a standup that ends on time. Synced, with room to go deeper."
+      },
+      "c": {
+        "label": "Grade C · Needs refinement first",
+        "tip": "Concepts are a bit fuzzy. Grab a user-story card and write clear acceptance criteria."
+      },
+      "d": {
+        "label": "Grade D · Read the Scrum Guide first",
+        "tip": "No worries — agile is a practice sport. Play again, and start with who owns the value."
+      }
+    },
+    "q1": {
+      "prompt": "In Scrum, what does a “Sprint” usually mean?",
+      "a": "An emergency hotfix window after a production release",
+      "b": "A fixed-length iteration that can produce a usable increment",
+      "c": "A few overtime days the team sprints to ship",
+      "d": "A yearly milestone on the product roadmap",
+      "funFact": "Sprints are typically 1–4 weeks; keeping the length stable helps the team forecast."
+    },
+    "q2": {
+      "prompt": "What is the main purpose of the Daily Scrum?",
+      "a": "Report to a manager how many hours everyone worked yesterday",
+      "b": "Assign every task for the next Sprint on the spot",
+      "c": "Let developers sync progress, surface blockers, and adjust the day’s plan",
+      "d": "Have the Product Owner demo new features to customers",
+      "funFact": "The classic three questions are just a common format — the point is developer alignment, not status theater."
+    },
+    "q3": {
+      "prompt": "What problem does a “Definition of Done” mainly solve?",
+      "a": "Agreeing what “done” means so the increment is truly usable",
+      "b": "Requiring a fixed number of lines of code per person per day",
+      "c": "Defining when the Product Owner may change requirements",
+      "d": "Listing rules that ban time off during a Sprint",
+      "funFact": "Without a shared DoD, teams often mistake “code written” for “ready to release.”"
+    },
+    "q4": {
+      "prompt": "What is the Product Owner’s core responsibility?",
+      "a": "Assign daily tasks and micromanage progress",
+      "b": "Manage the Product Backlog to maximize product value",
+      "c": "Build the CI/CD pipeline and run the servers",
+      "d": "Chair every technical design review",
+      "funFact": "The PO owns what to build and in what order; the developers own how to build it."
+    },
+    "q5": {
+      "prompt": "What usually makes a good user story?",
+      "a": "Only technical implementation details, no business goal",
+      "b": "The longer the better — pack half a year of work into one card",
+      "c": "Describe role, goal, and value, with verifiable acceptance criteria",
+      "d": "Must be written only by QA; developers cannot contribute",
+      "funFact": "A common template is “As a… I want… so that…”. INVEST is often used to check story quality."
+    },
+    "q6": {
+      "prompt": "What is a Sprint Retrospective mainly for?",
+      "a": "Demo this Sprint’s increment to leadership",
+      "b": "Estimate story points for the next Sprint",
+      "c": "Check whether code coverage hit the target",
+      "d": "Reflect on how the team works and commit to improvements",
+      "funFact": "Retrospectives focus on people and process; Sprint Review focuses more on the product increment."
+    },
+    "q7": {
+      "prompt": "In agile, what does “velocity” usually mean?",
+      "a": "Peak requests per second the servers can handle",
+      "b": "A reference pace for how much work a team finishes across Sprints",
+      "c": "How fast daily active users grow after launch",
+      "d": "Average time spent in code review",
+      "funFact": "Velocity is for forecasting, not for ranking teams — that race often inflates story points."
+    },
+    "q8": {
+      "prompt": "In Kanban, what is the main benefit of limiting WIP?",
+      "a": "Force everyone to start more tasks so they look busy",
+      "b": "Reduce context switching, expose bottlenecks, and improve flow",
+      "c": "Keep the board forever at exactly three columns",
+      "d": "Remove all priorities so whoever finishes first picks next",
+      "funFact": "Finish more by starting less: WIP limits are a core lever for Kanban throughput."
+    },
+    "q9": {
+      "prompt": "What does Product Backlog refinement usually involve?",
+      "a": "Clarify fuzzy items and acceptance criteria to prepare for upcoming Sprints",
+      "b": "Change requirements urgently on release day",
+      "c": "Delete every user story that has not started",
+      "d": "Assign development tasks directly to individuals",
+      "funFact": "Refinement is ongoing — you should not see a story for the first time only in Sprint Planning."
+    },
+    "q10": {
+      "prompt": "What does an MVP (Minimum Viable Product) emphasize?",
+      "a": "Ship as many features as possible and polish everything first",
+      "b": "Validate core assumptions with the least effort and get feedback early",
+      "c": "Must use microservices and a cloud-native stack",
+      "d": "Polish the UI first and leave business logic for later",
+      "funFact": "“Minimum” is about learning fast — not about delivering half-baked work just to check a box."
+    }
+  }
+}

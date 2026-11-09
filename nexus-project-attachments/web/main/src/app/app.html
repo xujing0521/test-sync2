@@ -1,0 +1,98 @@
+<thy-layout>
+  <thy-header thyTitle="项目附件" thyDivided></thy-header>
+
+  <thy-content class="p-5">
+    <div class="w-100 d-flex align-items-center justify-content-between mb-5">
+      <div class="d-flex align-items-center">
+        <thy-input-search thySize="lg" class="search-input" thyPlaceholder="搜索文件名" [(ngModel)]="search"></thy-input-search>
+        <div class="ml-2">{{ filteredAttachments().length }} <span class="text-muted">个附件</span></div>
+      </div>
+
+      <button thyButton="primary" [disabled]="!projectId()" (click)="onUploadClick(fileInput)"><thy-icon thyName="plus"></thy-icon>上传</button>
+    </div>
+
+    <thy-table
+      thyAppearance="boxed"
+      thySize="xlg"
+      thyRowKey="id"
+      [thyLayoutFixed]="true"
+      [thyLoadingDone]="loadingDone()"
+      [thyModel]="filteredAttachments()"
+    >
+        <thy-table-column
+          thyTitle="文件名称"
+          thyModelKey="name"
+          thyWidth="26%"
+        >
+          <ng-template #cell let-row>
+            <div class="d-flex align-items-center w-100 min-w-0">
+              <thy-icon class="text-primary mr-2 flex-shrink-0" thyName="file"></thy-icon>
+              @if (isEditing() && editing()?.id === row.id) {
+                <input
+                  thyInput
+                  thyAutofocus
+                  class="name-input"
+                  autocomplete="off"
+                  placeholder="请输入文件名"
+                  [(ngModel)]="editingName"
+                  (keydown.enter)="saveName(row)"
+                  (blur)="saveName(row)"
+                />
+              } @else {
+                <span class="min-w-0" thyFlexibleText [thyTooltipContent]="row.name">{{ row.name }}</span>
+              }
+            </div>
+          </ng-template>
+        </thy-table-column>
+
+        <thy-table-column
+          thyTitle="大小"
+          thyModelKey="size"
+          thyWidth="10%"
+        >
+          <ng-template #cell let-row>
+            {{ row.size | fileSize }}
+          </ng-template>
+        </thy-table-column>
+
+        <thy-table-column thyTitle="上传人" thyModelKey="uploader_id" thyWidth="14%">
+          <ng-template #cell let-row>
+            <thy-avatar
+              thySize="sm"
+              [thySrc]="row.uploader?.avatar"
+              [thyName]="row.uploader?.display_name || row.uploader?.name"
+              [thyShowName]="true"
+            ></thy-avatar>
+          </ng-template>
+        </thy-table-column>
+
+        <thy-table-column
+          thyTitle="上传时间"
+          thyModelKey="uploaded_at"
+          thyWidth="22%"
+        >
+          <ng-template #cell let-row>
+            <span class="text-nowrap">{{ row.uploaded_at | dateFormat }}</span>
+          </ng-template>
+        </thy-table-column>
+
+        <thy-table-column thyTitle="操作" thyOperational="true" thyWidth="28%">
+          <ng-template #cell let-row>
+            <thy-space thySize="sm" thyAlign="center">
+              <a *thySpaceItem href="javascript:;" (click)="onRename(row)">重命名</a>
+              <a *thySpaceItem href="javascript:;" (click)="onReupload(row, fileInput)">重新上传</a>
+              <a *thySpaceItem href="javascript:;" (click)="onDownload(row)">下载</a>
+              <a *thySpaceItem href="javascript:;" class="link-danger" (click)="onDelete(row)">删除</a>
+            </thy-space>
+          </ng-template>
+        </thy-table-column>
+    </thy-table>
+  </thy-content>
+
+  <input
+    #fileInput
+    class="d-none"
+    type="file"
+    (change)="onFileSelected($event)"
+  />
+</thy-layout>

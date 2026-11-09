@@ -1,0 +1,45 @@
+app:
+  version: 1.0.0
+  publisher:
+    name: PingCode 团队
+    email: support@pingcode.com
+    phone: 400-805-1024
+    site: https://pingcode.com
+  links:
+    - title: 服务条款
+      url: https://pingcode.com/terms
+    - title: 隐私政策
+      url: https://pingcode.com/privacy
+extensions:
+  - key: nexus-external-profile-personal-setting
+    target: pcm:global:personal:setting
+    resolver:
+      function: resolver
+    pages:
+      - key: github
+        title: GitHub
+        resource: main
+        route: github
+    section:
+      header: 外部资料
+      enabled: true
+functions:
+  - key: resolver
+    handler: index.resolver
+resources:
+  - key: main
+    path: web/main/dist
+permissions:
+  scopes:
+    - pcp:storage:app
+  external:
+    fetch:
+      backend:
+        - api.github.com
+    images:
+      - https://avatars.githubusercontent.com
+  content:
+    scripts:
+      - unsafe-inline
+    styles:
+      - unsafe-inline

@@ -1,0 +1,135 @@
+# yaml-language-server: $schema=node_modules/@pc-nexus/manifest/schema/manifest.schema.json
+app:
+  version: 1.0.0
+  publisher:
+    name: PingCode 团队
+    email: support@pingcode.com
+    phone: 400-805-1024
+    site: https://pingcode.com
+  links:
+    - title: 服务条款
+      url: https://pingcode.com/terms
+    - title: 隐私政策
+      url: https://pingcode.com/privacy
+extensions:
+  - key: event-feed
+    resource: main
+    target: pcm:global:app:hub
+    resolver:
+      function: resolver
+    title: 事件动态
+functions:
+  - key: resolver
+    handler: index.resolver
+  - key: install-handler
+    handler: index.onInstall
+  - key: work-item-handler
+    handler: index.onWorkItem
+  - key: webhook-handler
+    handler: index.onWebhook
+  - key: schedule-handler
+    handler: index.onSchedule
+  - key: summary-handler
+    handler: index.onSummaryCompleted
+resources:
+  - key: main
+    path: web/main/dist
+event:
+  triggers:
+    - key: install
+      type: lifecycle
+      events:
+        - pce:nexus:app:install
+        - pce:nexus:app:upgrade
+      handler:
+        function: install-handler
+    - key: work-item
+      type: system
+      events:
+        - pce:pjm:workitem:created
+        - pce:pjm:workitem:updated
+      handler:
+        function: work-item-handler
+    - key: build-result
+      type: webhook
+      handler:
+        function: webhook-handler
+    - key: summarize
+      type: scheduled
+      interval: tenMinute
+      handler:
+        function: schedule-handler
+    - key: summary-completed
+      type: app
+      events:
+        - "nae:app:c4e8a1b2-7d35-4f6a-8e90-1b2c3d4e5f60:summary-completed"
+      handler:
+        function: summary-handler
+  registries:
+    - key: summary-completed
+      name: 汇总完成
+      allowedRecipients:
+        - "*"
+storage:
+  entities:
+    - name: activities
+      attributes:
+        - name: activity_id
+          type: string
+          required: true
+        - name: team
+          type: string
+          required: true
+        - name: source
+          type: string
+          required: true
+        - name: text
+          type: string
+          required: true
+        - name: occurred_at
+          type: number
+          required: true
+        - name: summary_status
+          type: string
+          required: true
+        - name: detail
+          type: object
+          required: true
+      indexes:
+        - name: by_team_status
+          keys:
+            - team: 1
+            - summary_status: 1
+    - name: schedules
+      attributes:
+        - name: schedule_id
+          type: string
+          required: true
+        - name: team
+          type: string
+          required: true
+        - name: count
+          type: number
+          required: true
+        - name: duration_ms
+          type: number
+          required: true
+        - name: result
+          type: string
+          required: true
+        - name: executed_at
+          type: number
+          required: true
+      indexes:
+        - name: by_team
+          keys:
+            - team: 1
+permissions:
+  scopes:
+    - pcp:storage:app
+    - pcp:read:pjm:workitem
+  content:
+    styles:
+      - unsafe-inline
+    scripts:
+      - unsafe-inline

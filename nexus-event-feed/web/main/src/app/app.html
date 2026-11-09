@@ -1,0 +1,115 @@
+<main class="feed">
+  <header class="feed-head">
+    <h1>事件动态</h1>
+    <div class="auto-refresh">
+      自动刷新
+      <thy-switch thySize="sm" [ngModel]="autoRefresh()" (ngModelChange)="setAutoRefresh($event)" />
+    </div>
+  </header>
+  <thy-alert
+    class="feed-intro"
+    thyColor="info"
+    thyAppearance="fill"
+    [thyIcon]="false"
+    [thyMessage]="introMessage"
+  />
+  <ng-template #introMessage>
+    <span class="feed-intro-lines">
+      @for (line of introLines; track line) {
+        <span>{{ line }}</span>
+      }
+    </span>
+  </ng-template>
+
+  @if (feedResource.error()) {
+    <p class="feed-error">页面暂时读不出来。</p>
+  } @else if (!feed()) {
+    <p class="feed-muted">读取中</p>
+  } @else if (feed(); as feed) {
+    <section class="timeline" aria-label="时间线">
+      <h2>时间线（{{ feed.timeline.length }}）</h2>
+      <thy-table
+        [thyModel]="feed.timeline"
+        [thyLoadingDone]="true"
+        [thyLayoutFixed]="true"
+        thyMinWidth="860px"
+        thyTheme="default"
+        thySize="md"
+        thyRowKey="id"
+      >
+        <thy-table-column thyTitle="动态" thyWidth="22%">
+          <ng-template let-row>
+            <span class="ellipsis" overflowTip [thyTooltip]="row.text" thyTooltipPlacement="top">{{ row.text }}</span>
+          </ng-template>
+        </thy-table-column>
+        <thy-table-column thyTitle="来源" thyWidth="12%">
+          <ng-template let-row>
+            <span class="nowrap">{{ sourceText(row) }}</span>
+          </ng-template>
+        </thy-table-column>
+        <thy-table-column thyTitle="事件名" thyWidth="16%">
+          <ng-template let-activity>
+            @if (eventName(activity); as name) {
+              <span class="detail-event">
+                <span class="ellipsis" overflowTip [thyTooltip]="name" thyTooltipPlacement="top">{{ name }}</span>
+                <button type="button" class="detail-jump" (click)="openEventDoc(activity, $event)">
+                  <thy-icon thyName="publish" />
+                </button>
+              </span>
+            }
+          </ng-template>
+        </thy-table-column>
+        <thy-table-column thyTitle="时间" thyWidth="16%">
+          <ng-template let-row>
+            <span class="nowrap clock">{{ clock(row.occurredAt) }}</span>
+          </ng-template>
+        </thy-table-column>
+        <thy-table-column thyTitle="状态" thyWidth="10%">
+          <ng-template let-row>
+            <span class="nowrap">{{ statusText(row) }}</span>
+          </ng-template>
+        </thy-table-column>
+        <thy-table-column thyTitle="详情" thyWidth="24%">
+          <ng-template let-activity>
+            <dl class="detail">
+              @for (detail of detailRows(activity); track detail.label) {
+                <div class="detail-row">
+                  <dt>{{ detail.label }}</dt>
+                  <dd>
+                    @if (detail.key === "title" && (activity.detail["identifier"] || activity.detail["workItemId"])) {
+                      <button type="button" class="detail-link" (click)="openWorkItem(activity)">
+                        {{ detail.value }}
+                      </button>
+                    } @else {
+                      {{ detail.value }}
+                    }
+                  </dd>
+                </div>
+              }
+            </dl>
+          </ng-template>
+        </thy-table-column>
+        <ng-template #empty>
+          <thy-empty thyMessage="还没有动态" thySize="sm" />
+        </ng-template>
+      </thy-table>
+    </section>
+
+    <section class="feed-url" aria-label="Webhook 地址">
+      <label for="webhook-url">构建结果地址（webhook）</label>
+      <div class="webhook-row">
+        <input id="webhook-url" class="webhook-url" readonly [value]="feed.webhookUrl" />
+        <button
+          thyAction
+          thyIcon="copy"
+          thyAppearance="lite"
+          type="button"
+          #copyAction
+          (click)="copyCurl(feed.webhookUrl, copyAction)"
+        >
+          复制
+        </button>
+      </div>
+    </section>
+  }
+</main>
