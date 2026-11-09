@@ -1,0 +1,31 @@
+{
+  "name": "nexus-external-profile-web-main",
+  "version": "1.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build --base-href ./"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^22.1.5",
+    "@angular/cdk": "^22.1.5",
+    "@angular/common": "^22.1.5",
+    "@angular/compiler": "^22.1.5",
+    "@angular/core": "^22.1.5",
+    "@angular/forms": "^22.1.5",
+    "@angular/platform-browser": "^22.1.5",
+    "@pc-nexus/bridge": "^0.8.0",
+    "@tethys/cdk": "^22.0.6",
+    "@tethys/icons": "^1.4.97",
+    "ngx-tethys": "^22.0.6",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.1.7",
+    "@angular/cli": "^22.1.7",
+    "@angular/compiler-cli": "^22.1.5",
+    "typescript": "~6.0.3"
+  }
+}

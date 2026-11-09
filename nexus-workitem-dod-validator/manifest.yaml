@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=node_modules/@pc-nexus/manifest/schema/manifest.schema.json
+app:
+  version: 1.0.0
+  publisher:
+    name: PingCode 团队
+    email: support@pingcode.com
+    phone: 400-805-1024
+    site: https://pingcode.com
+  links:
+    - title: 服务条款
+      url: https://pingcode.com/terms
+    - title: 隐私政策
+      url: https://pingcode.com/privacy
+extensions:
+  - key: nexus-workitem-dod-validator
+    target: pcm:pjm:workitem:validator
+    title: DoD 校验
+    description: 按所选规则校验工时、子任务与关联测试用例
+    errorMessage: DoD 校验未通过
+    resolver:
+      function: dodValidate
+    create:
+      resource: main
+    edit:
+      resource: main
+functions:
+  - key: dodValidate
+    handler: index.dodValidate
+resources:
+  - key: main
+    path: web/main/index.tsx
+    render: native
+permissions:
+  scopes:
+    - pcp:read:pjm:workitem
+    - pcp:read:global:workload
+    - pcp:read:testhub:testcase
