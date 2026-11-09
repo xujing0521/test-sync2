@@ -1,0 +1,29 @@
+app:
+  version: 1.0.0
+  publisher:
+    name: PingCode 团队
+    email: support@pingcode.com
+    phone: 400-805-1024
+    site: https://pingcode.com
+  links:
+    - title: 服务条款
+      url: https://pingcode.com/terms
+    - title: 隐私政策
+      url: https://pingcode.com/privacy
+extensions:
+  - key: nexus-hello-world-angular-native-ui-project-page
+    resource: main
+    target: pcm:pjm:project:page
+    resolver:
+      function: resolver
+    title: Hello World
+    route: hello-world
+functions:
+  - key: resolver
+    handler: index.resolver
+permissions:
+  scopes: []
+resources:
+  - key: main
+    path: web/main/index.ts
+    render: native

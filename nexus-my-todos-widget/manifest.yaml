@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=node_modules/@pc-nexus/manifest/schema/manifest.schema.json
+app:
+  version: 1.0.0
+  publisher:
+    name: PingCode 团队
+    email: support@pingcode.com
+    phone: 400-805-1024
+    site: https://pingcode.com
+  links:
+    - title: 服务条款
+      url: https://pingcode.com/terms
+    - title: 隐私政策
+      url: https://pingcode.com/privacy
+extensions:
+  - key: nexus-my-todos-widget
+    target: pcm:global:dashboard:widget
+    resolver:
+      function: resolver
+    title: 我的待办
+    description: 在工作台仪表盘上管理个人待办
+    thumbnail: "resource:main/assets/widget-icons/my-todos.svg"
+    resource: main
+    layout:
+      min: "2 * 2"
+      max: "5 * 5"
+      default: "3 * 3"
+    view:
+      resource: main
+    edit:
+      resource: main
+functions:
+  - key: resolver
+    handler: index.resolver
+resources:
+  - key: main
+    path: web/main/dist
+storage:
+  entities:
+    - name: todos
+      attributes:
+        - name: id
+          type: string
+          required: true
+        - name: widget_id
+          type: string
+          required: true
+        - name: items
+          type: array
+          required: true
+      indexes:
+        - name: by_widget_id
+          keys:
+            - widget_id: 1
+permissions:
+  scopes:
+    - pcp:storage:app
+  content:
+    styles:
+      - unsafe-inline

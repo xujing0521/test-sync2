@@ -1,0 +1,36 @@
+{
+  "name": "nexus-hello-world-angular-native-ui",
+  "version": "1.0.0",
+  "description": "Nexus Hello World (Angular Native UI) example app",
+  "type": "module",
+  "main": "index.js",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "serve": "nexus serve --environment development",
+    "start": "npm run serve",
+    "deploy-only": "nexus deploy",
+    "deploy": "nexus deploy"
+  },
+  "devDependencies": {
+    "@pc-nexus/cli": "0.8.0",
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3",
+    "@pc-nexus/angular-builder": "^0.8.0"
+  },
+  "dependencies": {
+    "@pc-nexus/core": "^0.8.0",
+    "@pc-nexus/manifest": "^0.8.0",
+    "@angular/common": "^22.1.0",
+    "@angular/compiler": "^22.1.0",
+    "@angular/core": "^22.1.0",
+    "@angular/platform-browser": "^22.1.0",
+    "@angular/router": "^22.1.0",
+    "@pc-nexus/angular": "^0.8.0",
+    "@pc-nexus/bridge": "^0.8.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  }
+}

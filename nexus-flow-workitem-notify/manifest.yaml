@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=node_modules/@pc-nexus/manifest/schema/manifest.schema.json
+app:
+  version: 1.0.0
+  publisher:
+    name: PingCode 团队
+    email: support@pingcode.com
+    phone: 400-805-1024
+    site: https://pingcode.com
+  links:
+    - title: 服务条款
+      url: https://pingcode.com/terms
+    - title: 隐私政策
+      url: https://pingcode.com/privacy
+extensions:
+  - key: nexus-flow-workitem-notify-action
+    target: "pcm:flow:workflow:action"
+    resolver:
+      function: resolver
+    title: 发送企业微信群通知
+    description: Nexus Workflow 自定义动作示例：绑定上游工作项，推送一条变更通知，并向下游返回投递结果。
+    resource: main
+    inputPolicy:
+      mode: fixed
+      allowedTypes: [ text, pjm_workitem ]
+    inputSchema:
+      - key: webhookUrl
+        title: 企业微信群机器人 Webhook 地址
+        type: text
+        required: true
+      - key: workItem
+        title: 数据来源工作项
+        type: pjm_workitem
+        required: true
+    dynamicPropertyPolicy:
+      mode: fixed
+      allowedTypes: [ text ]
+    dynamicPropertySchema:
+      - key: notifyDelivered
+        title: 投递是否成功
+        type: text
+        required: false
+
+functions:
+  - key: resolver
+    handler: index.resolver
+
+resources:
+  - key: main
+    path: web/main/index.tsx
+    render: native
+
+permissions:
+  scopes: [ pcp:read:pjm:workitem ]
+  external:
+    fetch:
+      backend:
+        - qyapi.weixin.qq.com

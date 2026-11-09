@@ -1,0 +1,11 @@
+@use 'ngx-tethys/styles/index.scss';
+
+// Context iframe auto-sizes to content. Keep a fixed shell so thyTooltip (bottom)
+// can paint in the reserved band without growing the host module on hover.
+html,
+body {
+  margin: 0;
+  height: 120px;
+  overflow: hidden;
+  background: transparent;
+}

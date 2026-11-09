@@ -1,0 +1,33 @@
+{
+  "name": "nexus-workitem-live-viewer",
+  "version": "1.0.0",
+  "description": "Nexus work item Live Viewer example app",
+  "type": "module",
+  "main": "index.js",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "workspaces": [
+    "web/main"
+  ],
+  "scripts": {
+    "build-web": "npm run build -w nexus-workitem-live-viewer-web-main",
+    "start-web": "npm run start -w nexus-workitem-live-viewer-web-main",
+    "build": "tsc && npm run build-web",
+    "serve": "nexus serve --environment development",
+    "start": "concurrently \"npm run start-web\" \"npm run serve\"",
+    "deploy-only": "nexus deploy",
+    "deploy": "npm run build-web && nexus deploy"
+  },
+  "dependencies": {
+    "@pc-nexus/core": "^0.8.0",
+    "@pc-nexus/manifest": "^0.8.0",
+    "@pc-nexus/network": "^0.8.0"
+  },
+  "devDependencies": {
+    "@pc-nexus/cli": "1.0.0-next.2",
+    "@types/node": "^24.10.1",
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.3"
+  }
+}

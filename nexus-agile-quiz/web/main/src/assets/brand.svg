@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+  <defs>
+    <linearGradient id="brand-bg" x1="8" y1="4" x2="34" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7aa6ff"/>
+      <stop offset="1" stop-color="#6698ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="12" fill="url(#brand-bg)"/>
+  <rect x="10" y="9" width="20" height="22" rx="4" fill="#fff" opacity="0.96"/>
+  <path d="M14 15.5h12" stroke="#6698ff" stroke-width="2" stroke-linecap="round"/>
+  <path d="M14 20h12" stroke="#6698ff" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <path d="M14 24.5h7" stroke="#6698ff" stroke-width="2" stroke-linecap="round" opacity="0.45"/>
+  <circle cx="28.5" cy="26.5" r="5.25" fill="#73d897"/>
+  <path
+    d="M26.35 26.55l1.35 1.35 2.85-2.85"
+    stroke="#fff"
+    stroke-width="1.7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+</svg>

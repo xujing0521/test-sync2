@@ -1,0 +1,64 @@
+# yaml-language-server: $schema=node_modules/@pc-nexus/manifest/schema/manifest.schema.json
+app:
+  version: 1.0.0
+  publisher:
+    name: PingCode 团队
+    email: support@pingcode.com
+    phone: 400-805-1024
+    site: https://pingcode.com
+  links:
+    - title: 服务条款
+      url: https://pingcode.com/terms
+    - title: 隐私政策
+      url: https://pingcode.com/privacy
+extensions:
+  - key: nexus-project-attachments-project-page
+    target: pcm:pjm:project:page
+    title: 附件
+    resource: main
+    resolver:
+      function: resolver
+    route: attachments
+functions:
+  - key: resolver
+    handler: index.resolver
+resources:
+  - key: main
+    path: web/main/dist
+storage:
+  entities:
+    - name: attachment
+      attributes:
+        - name: id
+          type: string
+          required: true
+        - name: project_id
+          type: string
+          required: true
+        - name: name
+          type: string
+          required: true
+        - name: object_key
+          type: string
+          required: true
+        - name: size
+          type: number
+        - name: mime_type
+          type: string
+        - name: checksum
+          type: string
+        - name: uploader_id
+          type: string
+        - name: uploaded_at
+          type: number
+      indexes:
+        - name: project_id_
+          keys:
+            - project_id: 1
+permissions:
+  scopes:
+    - pcp:storage:app
+    - pcp:read:global:team
+  content:
+    styles:
+      - unsafe-inline
